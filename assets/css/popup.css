@@ -1,0 +1,168 @@
+/**
+ * EWEB - MC Video Popup
+ * Version: 1.1.4
+ * CSS with isolation from theme styles
+ */
+
+/* Popup wrapper - hidden by default */
+.mcvp-wrap {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 999999 !important;
+}
+
+.mcvp-wrap.mcvp-active {
+    display: flex !important;
+}
+
+/* Overlay background */
+.mcvp-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(8, 10, 16, 0.85) !important;
+    backdrop-filter: blur(4px);
+}
+
+/* Modal container */
+.mcvp-modal {
+    position: relative !important;
+    width: min(920px, 92vw) !important;
+    aspect-ratio: 16/9 !important;
+    background: #000 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden !important;
+    z-index: 2 !important;
+}
+
+/* Close button */
+.mcvp-close {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 6 !important;
+    width: 40px !important;
+    height: 40px !important;
+    border: none !important;
+    border-radius: 50% !important;
+    background: #111 !important;
+    color: #fff !important;
+    font-size: 28px !important;
+    line-height: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    opacity: 0.9 !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.mcvp-close:hover {
+    opacity: 1 !important;
+}
+
+.mcvp-close:focus {
+    outline: 2px solid #fff !important;
+    outline-offset: 2px !important;
+}
+
+/* Video player */
+.mcvp-player {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#mcvp-player-slot,
+.mcvp-player iframe {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+}
+
+/* Clickable overlay */
+.mcvp-toplink {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 5 !important;
+    text-indent: -9999px !important;
+    display: none !important;
+}
+
+.mcvp-toplink.is-on {
+    display: block !important;
+}
+
+/* Unmute button */
+.mcvp-unmute {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 12px !important;
+    transform: translateX(-50%) !important;
+    z-index: 10 !important;
+    padding: 0.5rem 1rem !important;
+    border: none !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.mcvp-unmute:hover {
+    background: #f0f0f0 !important;
+}
+
+/* Info note */
+.mcvp-note {
+    position: absolute !important;
+    left: 12px !important;
+    top: 12px !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-size: 13px !important;
+    opacity: 0.8 !important;
+    z-index: 3 !important;
+}
+
+/* Scroll lock */
+html.mcvp-lock,
+body.mcvp-lock {
+    overflow: hidden !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .mcvp-modal {
+        width: 95vw !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mcvp-close {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 24px !important;
+    }
+
+    .mcvp-unmute {
+        font-size: 0.9rem !important;
+    }
+
+    .mcvp-note {
+        display: none !important;
+    }
+}
