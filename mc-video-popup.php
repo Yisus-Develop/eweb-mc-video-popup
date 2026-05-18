@@ -24,6 +24,17 @@
 
 if (!defined('ABSPATH')) { exit; }
 
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-eweb-github-updater.php';
+
+add_action( 'init', function() {
+    new EWEB_GitHub_Updater( array(
+        'owner'       => 'Yisus-Develop',
+        'repo'        => 'eweb-mc-video-popup',
+        'plugin_file' => plugin_basename( __FILE__ ),
+        'version'     => '1.1.4',
+    ) );
+} );
+
 final class MC_Video_Popup {
   // Temporary constraint: production host is locked to PHP 7.4.33 (legacy stack); keep compatibility until infra upgrade.
   const SLUG   = 'eweb-mc-video-popup';

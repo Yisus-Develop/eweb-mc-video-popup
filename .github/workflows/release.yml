@@ -1,0 +1,33 @@
+name: Release Plugin ZIP
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build plugin zip
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          mkdir -p dist
+          rsync -a ./ "dist/${REPO_NAME}/" \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'dist'
+          cd dist
+          zip -r "${REPO_NAME}.zip" "${REPO_NAME}"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true
