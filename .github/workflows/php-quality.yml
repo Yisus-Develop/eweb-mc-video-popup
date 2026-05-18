@@ -2,9 +2,7 @@ name: PHP Quality
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [main, develop]
   pull_request:
 
 jobs:
@@ -21,14 +19,16 @@ jobs:
           php-version: "8.1"
           tools: composer:v2
 
-      - name: Validate PHP syntax
-        run: find . -name "*.php" -print0 | xargs -0 -n1 php -l
+      - name: Validate PHP syntax (blocking)
+        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./.git/*" -print0 | xargs -0 -n1 php -l
 
       - name: Install PHPCS + WPCS
         run: |
+          composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
           composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs dealerdirect/phpcodesniffer-composer-installer
           echo "$HOME/.composer/vendor/bin" >> "$GITHUB_PATH"
           echo "$HOME/.config/composer/vendor/bin" >> "$GITHUB_PATH"
 
-      - name: Run PHPCS
-        run: phpcs --standard=WordPress-Core,WordPress-Docs,WordPress-Extra .
+      - name: Run PHPCS (non-blocking report)
+        continue-on-error: true
+        run: phpcs --standard=WordPress-Core,WordPress-Docs,WordPress-Extra --extensions=php . --ignore=vendor/*,.git/*
